@@ -1,4 +1,4 @@
-import xml.etree.ElementTree
+import xml.etree.ElementTree, xml.dom.minidom
 from json import dumps
 import argparse, sys, os
 
@@ -47,8 +47,11 @@ for model in sdf.find('world').findall('model'):
                 plugin = xml.etree.ElementTree.fromstring(sign_label_plugin_element)
             plugin_found = True
         if not plugin_found:
-            model.find('link').find('sensor').append(xml.etree.ElementTree.fromstring(sign_label_plugin_element))
+           model.find('link').find('sensor').append(xml.etree.ElementTree.fromstring(sign_label_plugin_element))
 
-file.write(args.sdf_file.name)
+prettified_xml = xml.dom.minidom.parseString( xml.etree.ElementTree.tostring( sdf,'utf-8' ) ).toprettyxml(indent='  ', newl='', encoding="utf-8")
+with open(os.path.abspath(args.sdf_file.name), "wb") as f:
+    f.write(prettified_xml)
+    f.close()
 
 print('Succesfully modified SDF file, you can run the launch file now')
