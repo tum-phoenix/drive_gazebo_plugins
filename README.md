@@ -25,8 +25,6 @@ Multiple signs in one image are handled by adding multiple rows for the same ima
    
 3. Replace the 'filename' string in scripts/insert_label_plugin.py by the location of the generated .sdf file and run it 
    
-   **NOTE: Please run it only once per .sdf file per now, otherwise multiple instances of the plugin will be included**
-
 4. Replace the <output_folder> attribute in the .sdf file by the desired output folder of the frames and the label .csv file.
 
 5. Launch the simulation with:
