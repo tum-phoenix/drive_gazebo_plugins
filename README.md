@@ -23,18 +23,24 @@ Multiple signs in one image are handled by adding multiple rows for the same ima
    
    **NOTE: the keyframe_plugin build location has to remain in your GAZEBO_PLUGIN_PATH at all times when generating labels.**
    
-3. Replace the 'filename' string in scripts/insert_label_plugin.py by the location of the generated .sdf file and run it 
-   
-4. Replace the <output_folder> attribute in the .sdf file by the desired output folder of the frames and the label .csv file.
+3. Run the python script to insert the plugin into the generated .sdf file
+   ```python 
+   python scripts/insert_label_plugin.py your_world_file_location -o your_output_folder
+   ```
+   Replace *your_world_file_location* by the location of the generated world file and *your_output_folder* by the desired
+   output folder of the plugin.
 
 5. Launch the simulation with:
    ```bash
-   roslaunch drive_gazebo_plugins sign_label_plugin.launch world:=*your_sdf_file_location*
+   roslaunch drive_gazebo_plugins sign_label_plugin.launch world:=your_sdf_file_location
    ```
    replacing *your_sdf_file_location* with the full path to the edited .sdf file.
    
    **NOTE: Currently, the plugin will not start before there is at least one subscriber to the camera topic. Therefore, it is advised
-   to run a roscore in advance and subscribe anything to that topic (even a simple listener, rviz or image_view is sufficient)**
+   to run a roscore in advance and subscribe anything to that topic (a simple listener, rviz or image_view is sufficient)**
    
-6. *Optional:* you can verify the generated images by replacing the 'source_folder' string in scripts/draw_bounding_boxes.py and running it.
-   This will provide a simple visualization of the bounding boxes, press any button to skip and move forward.
+6. *Optional:* you can view the generated images by running:
+   ```python 
+   python scripts/draw_bounding_boxes.py your_output_folder/ground_truth.csv
+   ```
+   replacing *your_output_folder* by the previously set output folder of the plugin.
