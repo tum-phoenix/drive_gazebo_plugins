@@ -11,11 +11,11 @@ Multiple signs in one image are handled by adding multiple rows for the same ima
 1. Install Gazebo 8
 
    **NOTE TO ROS USERS:** Gazebo 7 is usually installed with the ros-*distribution*-full packages (including *kinetic*). 
-   Use the following commands to remove it and switch to Gazebo 8 (replace *kinetic* by your distribution): 
+   Use the following commands to remove it and switch to Gazebo 8 (replace *kinetic* by your distribution) after [adding the
+   LCAS package repository to your sources](https://github.com/LCAS/rosdistro/wiki#using-the-l-cas-repository-if-you-just-want-to-use-our-software)
    ```bash
-   sudo apt-get remove ros-kinetic-desktop-full
    sudo apt-get remove ros-kinetic-gazebo*
-   sudo apt-get upgrade
+   sudo apt-get update
    sudo apt-get install ros-kinetic-gazebo8*
    ```
 2. Clone [drive_sim_road_generation](https://github.com/tum-phoenix/drive_sim_road_generation) and follow the instructions there
