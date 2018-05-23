@@ -32,7 +32,7 @@ Multiple signs in one image are handled by adding multiple rows for the same ima
 
 5. Launch the simulation with:
    ```bash
-   roslaunch drive_gazebo_plugins sign_label_plugin.launch world:=*your_sdf_file_location*
+   roslaunch drive_gazebo_plugins sign_label_plugin.launch world:=your_sdf_file_location
    ```
    replacing *your_sdf_file_location* with the full path to the edited .sdf file.
    
