@@ -23,12 +23,18 @@ sign_label_plugin_element = """
 </plugin>
 """.format(signs=dumps(signs_in_scene))
 
-print(sign_label_plugin_element)
 
 for model in sdf.find('world').findall('model'):
     if 'EgoVehicle' in model.attrib['name']:
-        print(model.find('link').find('sensor').getchildren())
-        model.find('link').find('sensor').append(xml.etree.ElementTree.fromstring(sign_label_plugin_element))
-        print(model.find('link').find('sensor').getchildren())
+	plugin_found = False
+	# if the plugin already has been added, overwrite
+	for plugin in model.find('link').find('sensor').findall('plugin'):
+	    if 'sign_label_plugin' in plugin.attrib['filename']:
+	    	plugin = xml.etree.ElementTree.fromstring(sign_label_plugin_element)
+		plugin_found = True
+	if not plugin_found:        
+	    model.find('link').find('sensor').append(xml.etree.ElementTree.fromstring(sign_label_plugin_element))
 
 file.write('/home/mykyta/catkin_ws/src/drive_gazebo_plugins/worlds/world_testing.sdf')
+
+print('Succesfully modified SDF file, you can run the launch file now')
