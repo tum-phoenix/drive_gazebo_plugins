@@ -108,6 +108,13 @@ void SignLabelPlugin::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
     ros::shutdown();
   }
 
+  this->initialized_ = true;
+
+  if (!this->parentSensor->IsActive())
+  {
+      this->parentSensor->SetActive(true);
+  }
+
   ROS_INFO("Succesfully loaded TrafficSignLabeler plugin!");
 }
 
@@ -129,8 +136,6 @@ void SignLabelPlugin::OnNewFrame(const unsigned char *_image, unsigned int _widt
 
   if (!this->parentSensor->IsActive())
   {
-    if ((*this->image_connect_count_) > 0)
-      // do this first so there's chance for sensor to run 1 frame after activate
       this->parentSensor->SetActive(true);
   }
 
@@ -153,13 +158,6 @@ void SignLabelPlugin::OnNewFrame(const unsigned char *_image, unsigned int _widt
   bool sign_found = false;
   std::string filename = output_folder_ + std::to_string(image_counter_) + ".bmp";
 
-//  std::vector<std::string> traffic_sign_names_;
-//  traffic_sign_names_.push_back("Sign/-13");
-//  traffic_sign_names_.push_back("Sign/-18");
-//  traffic_sign_names_.push_back("Sign/-23");
-//  traffic_sign_names_.push_back("Sign/-33");
-//  traffic_sign_names_.push_back("Sign/-43");
-//  traffic_sign_names_.push_back("Sign/-55");
   // get all visible objects
   gazebo::rendering::ScenePtr scene = CameraPlugin::parentSensor->Camera()->GetScene();
   for (const std::string& object_name : signs_in_scene_.getMemberNames()) {
