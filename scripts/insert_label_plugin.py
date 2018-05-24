@@ -1,5 +1,5 @@
 import xml.etree.ElementTree, xml.dom.minidom
-from json import dumps
+from json import dumps, load
 import argparse, sys, os
 
 class readable_dir(argparse.Action):
@@ -17,13 +17,16 @@ parser.add_argument("sdf_file", type=argparse.FileType("rw"), default=sys.stdin)
 parser.add_argument("-o", "--output_directory", action=readable_dir, default=os.getcwd())
 args = parser.parse_args()
 
+with open('stvo_to_gtsrb.json') as f:
+    stvo_to_gtsrb = load(f)
+
 filename = args.sdf_file
 file = xml.etree.ElementTree.parse(filename)
 sdf = file.getroot()
 signs_in_scene = {}
 for model in sdf.find('world').findall('model'):
     if 'Sign' in model.attrib['name']:
-        signs_in_scene[model.attrib['name']] = model.find('link').find('visual').find('material').find('script').find('name').text
+        signs_in_scene[model.attrib['name']] = stvo_to_gtsrb[model.find('link').find('visual').find('material').find('script').find('name').text[5:]]
 
 sign_label_plugin_element = """
 <plugin name="sign_label_plugin" filename="libdrive_sign_label_plugin.so">

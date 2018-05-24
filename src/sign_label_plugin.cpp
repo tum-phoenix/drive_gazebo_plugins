@@ -77,12 +77,12 @@ void SignLabelPlugin::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
   LoadImpl(_parent, _sdf);
   GazeboRosCameraUtils::Load(_parent, _sdf);
 
-  if (!_sdf->HasElement("sign_pixel_area_threshold"))
+  if (!_sdf->HasElement("sign_area_threshold"))
   {
-      ROS_WARN_STREAM("Unable to get parameter 'sign_pixel_area_threshold', using default "<<sign_pixel_area_threshold_);
+      ROS_WARN_STREAM("Unable to get parameter 'sign_area_threshold', using default "<<sign_pixel_area_threshold_);
   }
-  else if (!_sdf->GetElement("sign_pixel_area_threshold_")->GetValue()->Get<int>(sign_pixel_area_threshold_)) {
-    ROS_WARN_STREAM("Unable to cast parameter 'sign_pixel_area_threshold' to int, using default "<<sign_pixel_area_threshold_);
+  else if (!_sdf->GetElement("sign_area_threshold")->GetValue()->Get<int>(sign_pixel_area_threshold_)) {
+    ROS_WARN_STREAM("Unable to cast parameter 'sign_area_threshold' to int, using default "<<sign_pixel_area_threshold_);
   }
 
   if (!_sdf->HasElement("output_folder"))

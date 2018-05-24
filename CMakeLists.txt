@@ -65,6 +65,6 @@ install(FILES
     worlds/car-cc2017.dae
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
-catkin_install_python(PROGRAMS scripts/draw_bounding_boxes.py
+catkin_install_python(PROGRAMS scripts/draw_bounding_boxes.py scripts/insert_label_plugin.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
